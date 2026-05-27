@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的資訊學習歷程部落格 - AWS 與 Python Web 開發實作</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f7f6;
+        }
+
+        header {
+            background-color: #232f3e;
+            color: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: #232f3e;
+            border-bottom: 2px solid #ff9900;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        h3 {
+            color: #111;
+            background-color: #eaf2f8;
+            padding: 8px;
+            border-left: 5px solid #2980b9;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        pre {
+            background-color: #272822;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: monospace;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 5px;
+            color: #777;
+            font-size: 14px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🌐 我的第一篇學習歷程部落格</h1>
+        <p>技術專題：AWS 雲端環境安全與 Python Flask 全鏈路部署實作</p>
+    </header>
+
+    <!-- 主題一 -->
+    <div class="card">
+        <h2>📌 一、 專案目錄結構調查報告：src 與 test</h2>
+        <p>在現代軟體工程中，良好的目錄結構能大幅提升協作效率。本專案核心劃分為兩個最關鍵的資料夾：</p>
+
+        <h3>1. src 資料夾 (Source Code / 原始碼)</h3>
+        <ul>
+            <li><strong>定義：</strong> 專案的核心原始碼資料夾。</li>
+            <li><strong>主要功能：</strong> 存放維持應用程式核心運作的正式程式碼（如 Flask 後端邏輯、HTML/CSS 畫面、核心演算法）。</li>
+            <li><strong>重要性：</strong> 這是系統成品的本體，在進行編譯、打包與雲端上線部署時，系統主要只會讀取此處。</li>
+        </ul>
+
+        <h3>2. test 資料夾 (Test Code / 測試碼)</h3>
+        <ul>
+            <li><strong>定義：</strong> 自動化測試資料夾（通常與 src 結構對稱）。</li>
+            <li><strong>主要功能：</strong> 存放用來檢驗原始碼是否正確執行的自動化測試腳本（如單元測試、整合測試）。</li>
+            <li><strong>重要性：</strong> 專案的品質把關者。測試碼不會被部署給使用者看見，但能確保開發人員在修改核心程式碼時「不產生舊功能的 Bug」。</li>
+        </ul>
+    </div>
+
+    <!-- 主題二 -->
+    <div class="card">
+        <h2>🔒 二、 雲端安全防護防線：AWS 根帳號與 Linux 伺服器強化</h2>
+        <p>雲端運算（如 AWS）雖然便利，但若 Root 帳號流失將造成毀滅性損失。本實作歸納出兩大環境的安全防護重點：</p>
+
+        <h3>情境一：AWS 雲端根帳號 (Root User) 強化</h3>
+        <ul>
+            <li><span class="highlight">啟用多重要素驗證 (MFA)：</span> 透過 Google Authenticator 等虛擬通行密鑰綁定，建立密碼外洩後的第二道安全防線。</li>
+            <li><span class="highlight">刪除 Root 存取金鑰 (Access Key)：</span> 絕不建立也不外流 access_key_id，防止惡意駭客搬空雲端資源。</li>
+            <li><span class="highlight">建立 IAM 使用者群組：</span> 實務上將 Root 帳號封印，改建立具備管理權限的 IAM 使用者（如建置 admin、DevOps
+                權限組）進行維運。</li>
+            <li><span class="highlight">預算告警控制：</span> 於 Billing 建立「零預算金額」或「每月成本預算（如設定 3 美金，約 100 元台幣）」，一旦花費達 80%
+                即發送電郵通知，防止產生龐大費用。</li>
+        </ul>
+
+        <h3>情境二：Linux 伺服器 Root 帳號防護</h3>
+        <ul>
+            <li><strong>禁止 Root 遠端登入：</strong> 編輯 <code>/etc/ssh/sshd_config</code> 將 <code>PermitRootLogin</code> 改為
+                <code>no</code>，防止自動化機器人暴力破解密碼。</li>
+            <li><strong>改用 SSH 金鑰憑證：</strong> 關閉密碼登入功能（<code>PasswordAuthentication no</code>），僅允許配對金鑰對（Key Pair）登入。
+            </li>
+        </ul>
+    </div>
+
+    <!-- 主題三 -->
+    <div class="card">
+        <h2>☁️ 三、 從實體到虛擬：AWS EC2 核心雲端元件對照</h2>
+        <p>實作中利用 AWS 東京機房進行雲端佈署，其底層架構包含以下核心元件之中英對照：</p>
+        <table>
+            <tr>
+                <th>AWS 雲端元件</th>
+                <th>中文功能對照</th>
+                <th>實務技術職責</th>
+            </tr>
+            <tr>
+                <td><strong>Instance</strong></td>
+                <td>EC2 虛擬伺服器實例</td>
+                <td>負責專案的主要運算與應用程式運作流程。</td>
+            </tr>
+            <tr>
+                <td><strong>EBS</strong></td>
+                <td>雲端區塊儲存體/虛擬硬碟</td>
+                <td>伺服器的硬碟，負責持久化存放系統檔案與核心資料。</td>
+            </tr>
+            <tr>
+                <td><strong>AMI</strong></td>
+                <td>系統映像檔/樣板</td>
+                <td>包含作業系統的開機懶人包（例如部署 Windows Server 2025）。</td>
+            </tr>
+            <tr>
+                <td><strong>Security Group</strong></td>
+                <td>安全群組/虛擬防火牆</td>
+                <td>控制通訊埠（如允許 RDP、HTTPS 流量）進出的第一道閘口。</td>
+            </tr>
+            <tr>
+                <td><strong>Key Pair</strong></td>
+                <td>金鑰對/密鑰</td>
+                <td>遠端安全登入 Windows 或 Linux 伺服器的必備電子鑰匙（如 .pem 檔案）。</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 主題四 -->
+    <div class="card">
+        <h2>🐍 四、 後端開發實戰：Python Flask Web 應用部署</h2>
+        <p>本專案基於 Python 3.12 進行開發，在遠端 Windows 伺服器成功架設了 <strong>Flask 服務狀態儀表板 (Flask App Console)</strong>，運行於 <span
+                class="highlight">Port 19191</span>。</p>
+
+        <h3>部屬與執行流程：</h3>
+        <pre>
+# 1. 透過 Git 將雲端倉庫複製到本機環境
+git clone https://github.com/figfhgfgg/my-ai-project.git
+
+# 2. 移動到專案資料夾並利用環境配置下載套件
+cd my-ai-project
+pip install -r requirements.txt
+
+# 3. 啟動後端 Web 應用服務
+python run.py</pre>
+        <p>成果：成功開啟一鍵瞬開瞬關的容器化部署與高併發架構環境，儀表板可即時監控伺服器 Online 狀態與 Python 環境資訊。</p>
+    </div>
+
+    <!-- 網路觀念 -->
+    <div class="card">
+        <h2>🌐 五、 延伸資訊觀念：URL 與 URN 的差別</h2>
+        <p>在網路資源識別（URI）家族中，URL 與 URN 的核心差別如下表：</p>
+        <table>
+            <tr>
+                <th>特性</th>
+                <th>URL (統一資源定位符)</th>
+                <th>URN (統一資源名稱)</th>
+            </tr>
+            <tr>
+                <td><strong>主要功能</strong></td>
+                <td>告訴系統資源「在哪裡」 (Where)</td>
+                <td>告訴系統資源「是什麼」 (What)</td>
+            </tr>
+            <tr>
+                <td><strong>持久性</strong></td>
+                <td>較低。搬移檔案或變更網域就會失效 (404)</td>
+                <td>極高。名稱是全宇宙永久且獨一無二的。</td>
+            </tr>
+            <tr>
+                <td><strong>生活比喻</strong></td>
+                <td>台北市信義區信義路五段 7 號 (地址)</td>
+                <td>台北 101 (建築物的名字 / 身分證字號)</td>
+            </tr>
+        </table>
+    </div>
+
+    <footer>
+        <p>© 2026 我的學習歷程部落格. Powered by GitHub Pages.</p>
+    </footer>
+
+</body>
+
+</html>
